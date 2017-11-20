@@ -2,6 +2,7 @@ Design Document for CSC 211 Final Project: Language Detection
 Daniel Aleksa
 Daleksa@my.uri.edu
 Austin Agronick
+austin@my.uri.edu
 
 
 Problems to Solve:
