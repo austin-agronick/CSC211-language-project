@@ -28,7 +28,6 @@ Other Functions:
         -takes string of language data and starting at first index, incrementing by one and finding the trigram value for every 3 characters
         -add one to the frequency counter vector at that trigram value index
 
-
     Milestone 2:
     -getData() to convert the language file to a string
         -Increment through language file adding each character to a string with the exception of newline characters
