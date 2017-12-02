@@ -28,12 +28,17 @@ public:
 	/*
 	Getter methods
 	*/
+  std::string getText();
+
+  /*
+  Gets trigrm frequency
+  */
 	std::vector<int> getFrequency();
 
 private:
 
 	/* instance variables */
-	std::string text;
+	std::string txt;
 
 };
 
