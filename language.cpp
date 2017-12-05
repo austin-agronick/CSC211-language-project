@@ -3,20 +3,22 @@
 
 // Default Constructor
 LANG::LANG() {
+  txt = ""; // Initialize global text variable to empty value
 
 }
 
 // Creates LANG object given the text string
 LANG::LANG(std::string text) {
-    std::vector<char> abc = { ' ','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+//    std::vector<char> abc = { ' ','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
     for (unsigned long i = 0; i < text.size(); i++) {
-        if (text[i] != '\n' && std::find(abc.begin(), abc.end(), text[i]) == abc.end()) {
+        if (text[i] != '\n' && text[i] != ' ' && (text[i] < 'a' || text[i] > 'z')) {
             throw std::runtime_error("ERROR: Invalid text input, must only contain lowercase letters and spaces");
         }
     }
 
     txt = text; // Initialize global text variable
 }
+
 
 std::string LANG::getText() {
     return txt;
@@ -29,33 +31,31 @@ get a frequency profile
 */
 std::vector<int> LANG::getFrequency() {
   std::vector<int> frequencies(19683);
-  std::vector<char> abc = { ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
       // Start at the first three characters
       for (unsigned long i = 0; i < txt.size()-2; i++) {
-        int a = 0;
-        int b = 0;
-        int c = 0;
         char letter1 = txt[i];
         char letter2 = txt[i+1];
         char letter3 = txt[i+2];
 
-        if (letter1 =='\n'){
+        if (letter1 =='\n') {
           continue;
         }
-        else if (letter2 =='\n'){
+        else if (letter2 =='\n') {
           letter2 = txt[i+2];
           letter3 = txt[i+3];
         }
-        else if (letter3 =='\n'){
+        else if (letter3 =='\n') {
           letter3 = txt[i+3];
         }
-        unsigned long j = 0;
-        while (j < abc.size()) {
-          if (letter1 == abc[j]) a = j;
-          if (letter2 == abc[j]) b = j;
-          if (letter3 == abc[j]) c = j;
-          j++;
-        }
+
+        int a = letter1 - 'a' + 1;
+        int b = letter2 - 'a' + 1;
+        int c = letter3 - 'a' + 1;
+        // check if trigram contains spaces
+        if (letter1 == ' ') a = 0;
+        if (letter2 == ' ') b = 0;
+        if (letter3 == ' ') c = 0;
+
         //calculate frequencies with formula
         int index = ((a*(27*27))+(b*27)+c);
         frequencies[index]+=1;
