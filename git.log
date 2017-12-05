@@ -1,3 +1,66 @@
+commit 6b6510af96217c3b7dccadcf454861e90676a5c9
+Author: Unknown <austin@my.uri.edu>
+Date:   Mon Dec 4 23:53:03 2017 -0500
+
+    All code working and commented
+
+commit a54ddb2feb348f31cfd71e560d9f2ebf6ceaa0a1
+Author: Unknown <austin@my.uri.edu>
+Date:   Mon Dec 4 22:41:49 2017 -0500
+
+    main.cpp completed
+    
+    Compiled successfully
+
+commit 4a9627fd6b736a2a684ae0efae8fc24279e38041
+Author: Unknown <austin@my.uri.edu>
+Date:   Mon Dec 4 21:48:12 2017 -0500
+
+    Language.cpp completed
+    
+    Needs to be tested
+
+commit 37b49197c3f918310b5017b19bccf9cce2a99cde
+Author: Unknown <austin@my.uri.edu>
+Date:   Sat Dec 2 16:46:19 2017 -0500
+
+    Wrote compile script and main.cpp
+    
+    All initial code written, not producing desired output
+    renamed frequencies.cpp to main.cpp
+
+commit 2a36e662b0e5b1c3722e6371ff3d13bb953cae73
+Author: Unknown <austin@my.uri.edu>
+Date:   Fri Dec 1 17:05:22 2017 -0500
+
+    Finished getFrequency()
+
+commit 47fe773948d371b2747d087cd86c30893864835c
+Author: Unknown <austin@my.uri.edu>
+Date:   Fri Dec 1 15:22:55 2017 -0500
+
+    All parts of language.cpp have been layed out
+
+commit 64517a0580dfda81e43ab7f547154ab16cda85f5
+Author: Unknown <austin@my.uri.edu>
+Date:   Fri Dec 1 14:53:14 2017 -0500
+
+    Initial language.h code
+    
+    Also renaming main.cpp to frequencies.cpp
+
+commit 88e765791be842e3110894d62f826b78f4b32d7d
+Author: Unknown <austin@my.uri.edu>
+Date:   Fri Dec 1 14:15:09 2017 -0500
+
+    Created project files
+
+commit 8232087a875c1e8f49fd8db67a8a99d97c839997
+Author: Unknown <austin@my.uri.edu>
+Date:   Mon Nov 20 15:42:08 2017 -0500
+
+    Added git log
+
 commit 716d9e3cdbdec52b4d60f8a355e8f3fbd28cdd91
 Author: Unknown <austin@my.uri.edu>
 Date:   Mon Nov 20 15:34:16 2017 -0500
