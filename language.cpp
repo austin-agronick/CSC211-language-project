@@ -1,7 +1,6 @@
 #include "language.h"
 #include <algorithm> // std::find
 
-
 // Default Constructor
 LANG::LANG() {
 
@@ -11,7 +10,7 @@ LANG::LANG() {
 LANG::LANG(std::string text) {
     std::vector<char> abc = { ' ','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
     for (unsigned long i = 0; i < text.size(); i++) {
-        if (text[i] != '\n' || std::find(abc.begin(), abc.end(), text[i]) == abc.end()) {
+        if (text[i] != '\n' && std::find(abc.begin(), abc.end(), text[i]) == abc.end()) {
             throw std::runtime_error("ERROR: Invalid text input, must only contain lowercase letters and spaces");
         }
     }
@@ -30,7 +29,7 @@ get a frequency profile
 */
 std::vector<int> LANG::getFrequency() {
   std::vector<int> frequencies(19683);
-  std::vector<char> abc = { ' ','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+  std::vector<char> abc = { ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
       // Start at the first three characters
       for (unsigned long i = 0; i < txt.size()-2; i++) {
         int a = 0;
@@ -53,12 +52,17 @@ std::vector<int> LANG::getFrequency() {
         unsigned long j = 0;
         while (j < abc.size()) {
           if (letter1 == abc[j]) a = j;
-          else if (letter2 == abc[j]) b = j;
-          else if (letter3 == abc[j]) c = j;
+          if (letter2 == abc[j]) b = j;
+          if (letter3 == abc[j]) c = j;
+          j++;
         }
         //calculate frequencies with formula
         int index = ((a*(27*27))+(b*27)+c);
         frequencies[index]+=1;
         }
+        for(unsigned long i=0;i < 19683;i++){
+          std::cout<<frequencies[i]<< ' ';
+        }
         return frequencies;
+
 }
