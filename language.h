@@ -42,12 +42,13 @@ public:
 	/*
 	compares frequency vectors for similarity
 	*/
-	double compareFrequencies();
+	double compFreq(LANG file1, LANG file2);
 
 private:
 
 	/* instance variables */
 	std::string txt;
+	std::vector<int> frequencies;
 
 };
 

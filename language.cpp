@@ -1,8 +1,11 @@
 #include "language.h"
+#include <fstream>
+#include <cmath>
 
 // Default Constructor
 LANG::LANG() {
   txt = ""; // Initialize global text variable to empty value
+  std::vector<int> frequencies;
 }
 
 // Loads a LANG text data to 'txt', given a file 'infile'
@@ -21,7 +24,6 @@ LANG::LANG(std::ifstream &infile) {
     }
   }
   infile.close();
-}
 
   //tests to see if file text is valid format
   for (unsigned long i = 0; i < text.size(); i++) {
@@ -88,10 +90,10 @@ double LANG::compFreq(LANG trainingFile, LANG testFile) {
   double numerator = 0;
   double denom1 = 0;
   double denom2 = 0;
-  for(i=0; i<=19682; i++) {
+  for (int i=0; i<=19682; i++) {
     numerator += (trFile[i]*teFile[i]);
-    denom1 += std::pow(trFile[i],2);
-    denom2 += std::pow(teFile[i].2);
+    denom1 += std::pow(trFile[i], 2);
+    denom2 += std::pow(teFile[i], 2);
   }
   double denom = std::sqrt(denom1)*std::sqrt(denom2);
   similarity = numerator/denom;
