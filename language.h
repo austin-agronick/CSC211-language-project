@@ -26,6 +26,10 @@ public:
 	LANG(std::string text);
 
 	/*
+	*/
+	LANG(std::ifstream &infile);
+
+	/*
 	Getter methods
 	*/
   std::string getText();
@@ -34,6 +38,11 @@ public:
   Gets trigrm frequency
   */
 	std::vector<int> getFrequency();
+
+	/*
+	compares frequency vectors for similarity
+	*/
+	double compareFrequencies();
 
 private:
 

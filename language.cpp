@@ -5,15 +5,31 @@ LANG::LANG() {
   txt = ""; // Initialize global text variable to empty value
 }
 
-// Creates LANG object given the text string
-LANG::LANG(std::string text) {
-    // Checks if given input is valid
-    for (unsigned long i = 0; i < text.size(); i++) {
-        if (text[i] != '\n' && text[i] != ' ' && (text[i] < 'a' || text[i] > 'z')) {
-            throw std::runtime_error("ERROR: Invalid text input, must only contain lowercase letters and spaces");
-        }
+// Loads a LANG text data to 'txt', given a file 'infile'
+LANG::LANG(std::ifstream &infile) {
+
+  std::string line;
+  std::string text;
+
+  // Check if the file is accessible
+  if (infile.fail()) {
+    std::runtime_error("ERROR: File could not be opened");
+  } else {
+    while (getline(infile, line)){
+      //adds line to full sequence
+      text+=line;
     }
-    txt = text; // Initialize global text variable
+  }
+  infile.close();
+}
+
+  //tests to see if file text is valid format
+  for (unsigned long i = 0; i < text.size(); i++) {
+      if (text[i] != '\n' && text[i] != ' ' && (text[i] < 'a' || text[i] > 'z')) {
+          throw std::runtime_error("ERROR: Invalid text input, must only contain lowercase letters and spaces");
+      }
+  }
+  txt = text; // Initialize global text variable
 }
 
 // getter for language text data
@@ -28,7 +44,7 @@ get a frequency profile
 */
 std::vector<int> LANG::getFrequency() {
   // initialize frequencies vector to 19683 zeroes
-  std::vector<int> frequencies(19683);
+  std::vector<int> tempFreq(19683);
       // iterate through text input,
       for (unsigned long i = 0; i < txt.size()-2; i++)
       {
@@ -59,7 +75,25 @@ std::vector<int> LANG::getFrequency() {
 
         // find the index of the trigram by using the formula and add 1 to its index
         int index = ((a*(27*27)) + (b*27) + c);
-        frequencies[index]+=1;
+        tempFreq[index]+=1;
       }
+      frequencies = tempFreq;
       return frequencies;
+}
+
+double LANG::compFreq(LANG trainingFile, LANG testFile) {
+  std::vector<int> trFile = trainingFile.getFrequency();
+  std::vector<int> teFile = testFile.getFrequency();
+  double similarity = 0;
+  double numerator = 0;
+  double denom1 = 0;
+  double denom2 = 0;
+  for(i=0; i<=19682; i++) {
+    numerator += (trFile[i]*teFile[i]);
+    denom1 += std::pow(trFile[i],2);
+    denom2 += std::pow(teFile[i].2);
+  }
+  double denom = std::sqrt(denom1)*std::sqrt(denom2);
+  similarity = numerator/denom;
+  return similarity;
 }
