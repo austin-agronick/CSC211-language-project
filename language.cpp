@@ -25,7 +25,8 @@ LANG::LANG(std::ifstream &infile) {
   }
   infile.close();
 
-  //tests to see if file text is valid format
+  // tests to see if file text language data is valid format
+  // If `text` contains invalid characters, throws a std::runtime_error
   for (unsigned long i = 0; i < text.size(); i++) {
       if (text[i] != '\n' && text[i] != ' ' && (text[i] < 'a' || text[i] > 'z')) {
           throw std::runtime_error("ERROR: Invalid text input, must only contain lowercase letters and spaces");
@@ -38,31 +39,37 @@ LANG::LANG(std::ifstream &infile) {
 std::string LANG::getText() {
     return txt;
 }
+// getter for frequency profile
+std::vector<int> LANG::getFrequency() {
+    return frequencies;
+}
 
 /*
 get a frequency profile
     - takes string of language data from a LANG object and starting at first index, increments by one while finding the trigram value for every 3 characters
     - add one to the frequency counter vector at that trigram value index
 */
-std::vector<int> LANG::getFrequency() {
+void LANG::calcFrequency() {
+  // get language text data
+  std::string text = this->getText();
   // initialize frequencies vector to 19683 zeroes
   std::vector<int> tempFreq(19683);
       // iterate through text input,
-      for (unsigned long i = 0; i < txt.size()-2; i++)
+      for (unsigned long i = 0; i < text.size()-2; i++)
       {
         // initialize variables for letters in the trigram
-        char letter1 = txt[i];
-        char letter2 = txt[i+1];
-        char letter3 = txt[i+2];
+        char letter1 = text[i];
+        char letter2 = text[i+1];
+        char letter3 = text[i+2];
 
         // check if the trigram contains a newline character, and if so skip over it
         if (letter1 =='\n') continue;
         else if (letter2 =='\n') {
-          letter2 = txt[i+2];
-          letter3 = txt[i+3];
+          letter2 = text[i+2];
+          letter3 = text[i+3];
         }
         else if (letter3 =='\n') {
-          letter3 = txt[i+3];
+          letter3 = text[i+3];
         }
 
         // get the value of each letter
@@ -80,11 +87,10 @@ std::vector<int> LANG::getFrequency() {
         tempFreq[index]+=1;
       }
       frequencies = tempFreq;
-      return frequencies;
 }
 
-double LANG::compFreq(LANG trainingFile, LANG testFile) {
-  std::vector<int> trFile = trainingFile.getFrequency();
+double LANG::calcSimilarity(LANG testFile) {
+  std::vector<int> trFile = this->getFrequency();
   std::vector<int> teFile = testFile.getFrequency();
   double similarity = 0;
   double numerator = 0;
@@ -96,6 +102,6 @@ double LANG::compFreq(LANG trainingFile, LANG testFile) {
     denom2 += std::pow(teFile[i], 2);
   }
   double denom = std::sqrt(denom1)*std::sqrt(denom2);
-  similarity = numerator/denom;
+  similarity = std::abs(numerator/denom);
   return similarity;
 }

@@ -2,6 +2,7 @@
 #define _language_h
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -20,12 +21,6 @@ public:
 	LANG();
 
 	/*
-	Constructor with argument for text of langauge data.
-	If `text` contains invalid characters, throws a std::runtime_error
-	*/
-	LANG(std::string text);
-
-	/*
 	*/
 	LANG(std::ifstream &infile);
 
@@ -33,16 +28,17 @@ public:
 	Getter methods
 	*/
   std::string getText();
-
-  /*
-  Gets trigrm frequency
-  */
 	std::vector<int> getFrequency();
 
+  /*
+  Calculates trigrm frequency
+  */
+	void calcFrequency();
+
 	/*
-	compares frequency vectors for similarity
+	Compares frequency vectors and calculates similarity
 	*/
-	double compFreq(LANG file1, LANG file2);
+	double calcSimilarity(LANG testFile);
 
 private:
 
