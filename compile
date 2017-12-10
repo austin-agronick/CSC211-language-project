@@ -6,7 +6,7 @@ set -e    # halt on first error
 CPP=g++
 
 # be aggressive about warnings and errors, optimization level 3
-FLAGS="-g -O -Wall -Wextra -Werror -Wfatal-errors -std=c++11 -pedantic"
+FLAGS="-O3 -Wall -Wextra -Werror -Wfatal-errors -std=c++11 -pedantic"
 
 
 # clear out old object files
