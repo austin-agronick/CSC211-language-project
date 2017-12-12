@@ -2,31 +2,31 @@
 #include <fstream>
 #include <cmath>
 
-// Default Constructor
+// default Constructor
 LANG::LANG() {
   txt = ""; // Initialize global text variable to empty value
   std::vector<int> frequencies;
 }
 
-// Loads a LANG text data to 'txt', given a file 'infile'
+// loads a LANG object's text data to 'txt', given a file 'infile'
 LANG::LANG(std::ifstream &infile) {
 
   std::string line;
   std::string text;
 
-  // Check if the file is accessible
+  // check if the file is accessible
   if (infile.fail()) {
     std::runtime_error("ERROR: File could not be opened");
   } else {
-    while (getline(infile, line)){
-      //adds line to full sequence
+    while (getline(infile, line)) {
+      // adds line to full sequence
       text+=line;
     }
   }
   infile.close();
 
   // tests to see if file text language data is valid format
-  // If `text` contains invalid characters, throws a std::runtime_error
+  // if `text` contains invalid characters, throws a std::runtime_error
   for (unsigned long i = 0; i < text.size(); i++) {
     if (text[i] != '\n' && text[i] != ' ' && (text[i] < 'a' || text[i] > 'z')) {
       throw std::runtime_error("ERROR: Invalid text input, must only contain lowercase letters and spaces");
@@ -85,21 +85,22 @@ void LANG::calcFrequency() {
       int index = ((a*(27*27)) + (b*27) + c);
       tempFreq[index]+=1;
       }
+      // initialize global frequencies variable
       frequencies = tempFreq;
 }
 
-double LANG::calcSimilarity(LANG testLang) {
+// implementation of cosine similarity function, called on a LANG object and takes training file vector as input parameter
+double LANG::calcSimilarity(std::vector<int> teFile) {
+  // calculate and get frequency profile for training file
   this->calcFrequency();
-  testLang.calcFrequency();
   std::vector<int> trFile = this->getFrequency();
-  std::vector<int> teFile = testLang.getFrequency();
-  double numerator = 0;
-  double denom1 = 0;
-  double denom2 = 0;
+  unsigned long long numerator = 0;
+  unsigned long long denom1 = 0;
+  unsigned long long denom2 = 0;
   for (int i=0; i<=19682; i++) {
     numerator += (trFile[i]*teFile[i]);
-    denom1 += std::pow(trFile[i], 2);
-    denom2 += std::pow(teFile[i], 2);
+    denom1 += (trFile[i]*trFile[i]);
+    denom2 += (teFile[i]*teFile[i]);
   }
   double denom = std::sqrt(denom1)*std::sqrt(denom2);
   double similarity = std::abs(numerator/denom);
